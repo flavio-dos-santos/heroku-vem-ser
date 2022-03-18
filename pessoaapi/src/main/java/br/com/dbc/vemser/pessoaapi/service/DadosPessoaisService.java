@@ -15,7 +15,7 @@ public class DadosPessoaisService {
 
 
 
-    public List<br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO> listDadosPessoais() {
+    public List<DadosPessoaisDTO> listDadosPessoais() {
         return client.getAll();
     }
 
