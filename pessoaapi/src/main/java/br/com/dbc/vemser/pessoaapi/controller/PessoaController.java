@@ -37,9 +37,9 @@ public class PessoaController {
         return "hello World!";
     }
 
-    @ApiOperation(value = "Retorna uma lista de pessoas")
+    @ApiOperation(value = "Retorna uma pessoa criada")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna a lista de pessoas"),
+            @ApiResponse(code = 200, message = "Criou uma pessoa"),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção")
     })
@@ -59,18 +59,36 @@ public class PessoaController {
         return pessoaService.list();
     }
 
+    @ApiOperation(value = "Retornar uma pessoa por nome")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna a lista de pessoas por nome"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @GetMapping("/listByName") // localhost:8080/pessoa/byname?nome=Rafa
     public Optional<PessoaDTO> listByName(@RequestParam("nome") String nome) {
         return pessoaService.listByName(nome);
     }
 
 
+    @ApiOperation(value = "Retornar uma pessoa Atualizada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Atualizou uma pessoa"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
                                  @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws Exception {
         return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizar));
     }
 
+    @ApiOperation(value = "Retornar uma pessoa deletada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Deletou uma pessoa"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @DeleteMapping("/{idPessoa}") // localhost:8080/pessoa/10
     public PessoaDTO delete(@PathVariable("idPessoa") Integer id) throws Exception {
       return  pessoaService.delete(id);
