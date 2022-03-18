@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.client.DadosPessoaisClient;
 import br.com.dbc.vemser.pessoaapi.dto.DadosPessoaisDTO;
+import br.com.dbc.vemser.pessoaapi.service.DadosPessoaisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,32 +14,32 @@ import java.util.List;
 @RequestMapping("/dados-pessoais")
 @RequiredArgsConstructor
 public class DadosPessoaisController {
-    private final DadosPessoaisClient client;
+    private DadosPessoaisService dadosPessoaisService;
 
     @GetMapping
     public List<DadosPessoaisDTO> listDadosPessoais() {
-        return client.getAll();
+        return dadosPessoaisService.getAll();
     }
 
     @PostMapping
     public DadosPessoaisDTO create(
             @RequestBody DadosPessoaisDTO dadosPessoaisDTO) throws Exception {
-        return client.post(dadosPessoaisDTO);
+        return dadosPessoaisService.post(dadosPessoaisDTO);
     }
 
     @PutMapping("/{cpf}")
     public DadosPessoaisDTO update(@PathVariable("cpf") String cpf,
                           @RequestBody DadosPessoaisDTO dto) throws Exception {
-        return client.put(cpf, dto);
+        return dadosPessoaisService.put(cpf, dto);
     }
 
     @GetMapping("/{cpf}")
     public DadosPessoaisDTO getByCpf(@PathVariable("cpf") String cpf){
-        return client.get(cpf);
+        return dadosPessoaisService.get(cpf);
     }
 
     @DeleteMapping("/{cpf}")
     public void delete(@PathVariable("cpf") String cpf){
-        client.delete(cpf);
+        dadosPessoaisService.delete(cpf);
     }
 }
